@@ -32,19 +32,13 @@ public class TechJobs {
         while (true) {
 
             String actionChoice = getUserSelection("View jobs by:", actionChoices);
-
             if (actionChoice.equals("list")) {
-
                 String columnChoice = getUserSelection("List", columnChoices);
-
                 if (columnChoice.equals("all")) {
                     printJobs(JobData.findAll());
                 } else {
-
                     ArrayList<String> results = JobData.findAll(columnChoice);
-
                     System.out.println("\n*** All " + columnChoices.get(columnChoice) + " Values ***");
-
                     // Print list of skills, employers, etc
                     for (String item : results) {
                         System.out.println(item);
@@ -68,14 +62,11 @@ public class TechJobs {
             }
         }
     }
-
     // ﻿Returns the key of the selected item from the choices Dictionary
     private static String getUserSelection(String menuHeader, HashMap<String, String> choices) {
-
         Integer choiceIdx;
         Boolean validChoice = false;
         String[] choiceKeys = new String[choices.size()];
-
         // Put the choices in an ordered structure so we can
         // associate an integer with each one
         Integer i = 0;
@@ -83,19 +74,14 @@ public class TechJobs {
             choiceKeys[i] = choiceKey;
             i++;
         }
-
         do {
-
             System.out.println("\n" + menuHeader);
-
             // Print available choices
             for (Integer j = 0; j < choiceKeys.length; j++) {
                 System.out.println("" + j + " - " + choices.get(choiceKeys[j]));
             }
-
             choiceIdx = in.nextInt();
             in.nextLine();
-
             // Validate user's input
             if (choiceIdx < 0 || choiceIdx >= choiceKeys.length) {
                 System.out.println("Invalid choice. Try again.");
@@ -107,10 +93,20 @@ public class TechJobs {
 
         return choiceKeys[choiceIdx];
     }
-
     // Print a list of jobs
     private static void printJobs(ArrayList<HashMap<String, String>> someJobs) {
 
-        System.out.println("printJobs is not implemented yet");
+        if (someJobs.size() > 0) {
+            for(HashMap<String, String> job : someJobs) {
+                System.out.println("******");
+                for(String key : job.keySet()) {
+                    System.out.println(key + ": " + job.get(key));
+                }
+                System.out.println("******");
+            }
+        }
+        else {
+            System.out.println("No Results Found, Please Try A Different Search.");
+        }
     }
 }
